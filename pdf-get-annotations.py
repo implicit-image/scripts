@@ -2,6 +2,8 @@
 
 import sys
 import PyPDF2, traceback
+import regex
+
 
 try:
     src = sys.argv[1]
@@ -14,7 +16,6 @@ try:
 except:
     out = sys.stdout
 
-    
 
 input1 = PyPDF2.PdfFileReader(open(src, "rb"))
 nPages = input1.getNumPages()

@@ -1,0 +1,30 @@
+#!/usr/bin/zsh
+#date +%s
+
+
+
+
+src="$PWD/$1"
+out="$PWD/out$(date +%s).json"
+theme="$2"
+outdir="$HOME/Projects/cv/out"
+# current="$outdir/current/resume.pdf"
+
+
+if [[ $theme == "spartan" ]]; then
+    themedir="$HOME/Projects/cv/node_modules/jsonresume-theme-spartan"
+fi
+if [[ $theme == "paper" ]]; then
+    themedir="$HOME/Projects/cv/node_modules/jsonresume-theme-paper-v2"
+fi
+
+if [[ -f "$src" ]]; then
+    toml2json -p "$src" > "$out"
+    # if there exists a current resume, move it to backup
+    if [[ -f "$outdir/current/resume.pdf" ]]; then
+        mv "$outdir/current/resume.pdf" "$outdir/old/resume-$(date).pdf"
+    fi
+    #TODO: if there are more than 10 backups, remove the oldest one
+    resume export -r "$out" -f pdf "$outdir/current/resume.pdf" -t $themedir
+    rm "$out"
+fi
