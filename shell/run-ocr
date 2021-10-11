@@ -1,0 +1,64 @@
+#!/usr/bin/zsh
+
+
+
+# tesseract list-of-images outfilename --tessdata-dir /usr/share/tessdata -l pol pdf
+# tess-ocr -l lang  -f format -d data_dir -r degree file
+
+function quit {
+    rm -rd /tmp/run-ocr
+    exit $1
+}
+
+
+
+infile="$@[-1]"
+lang='pol'
+format='pdf'
+outfile=$(echo $infile | cut -f 1 -d '.')
+data_dir="$TESSDATA_PREFIX"
+tempdir="/tmp/run-ocr"
+rotate=0
+mkdir /tmp/run-ocr
+
+while getopts "l:f:d:o:r:" opt; do
+    case $opt in
+        l)
+            lang="$OPTARG"
+            ;;
+        f)
+            format="$OPTARG"
+            ;;
+        d)
+            data_dir="$OPTARG"
+            ;;
+        o)
+            outfile="$OPTARG"
+            ;;
+        'r')
+            rotate=1
+            degree="$OPTARG"
+            ;;
+        *)
+            echo "$0 niepoprawna opcja: -$OPTARG"
+            quit 2
+            ;;
+    esac
+done
+
+startdir=$(pwd) #directory where script was launched
+cd /tmp/run-ocr/ # now we are in our temp dir
+pdftoppm -png "$startdir/$infile" "image"
+list=$(ls "$tempdir")
+
+
+if [[ $rotate == 1 ]]; then
+    #rotate images using convert
+    for image in $list; do
+        convert -rotate $degree $image $image
+    done
+fi
+
+tesseract $list $outfile --tessdata-dir $data_dir -l $lang $format
+mv "$outfile.pdf" "$startdir/$outfile.pdf"
+quit 1

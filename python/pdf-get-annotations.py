@@ -25,7 +25,7 @@ for i in range(nPages):
     try:
         for annot in page['/Annots']:
             annotObject = annot.getObject()
-            # pages start at zero so they number is 1 behind real ones
+            # pages start at zero so their number would be 1 behind real ones
             out.write('page number: {}\n'.format(input1.getPageNumber(page)+1))
             out.write('contents:\n{}\n\n'.format(annotObject['/Contents']))
     except: 

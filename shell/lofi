@@ -1,0 +1,6 @@
+#!/usr/bin/zsh
+
+
+link='https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow/live'
+
+mpv --really-quiet --no-video $link &
