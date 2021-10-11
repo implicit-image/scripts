@@ -2,15 +2,23 @@
 
 
 
-# tesseract list-of-images outfilename --tessdata-dir /usr/share/tessdata -l pol pdf
-# tess-ocr -l lang  -f format -d data_dir -r degree file
+# tess-ocr
+# -l lang
+# -f format
+# -d data_dir
+# -r degree
+# -o outfile
+# infile
 
 function quit {
     rm -rd /tmp/run-ocr
     exit $1
 }
 
-
+if [[ $@[-1] == $0 ]]; then
+    echo "You need to supply the input file"
+    quit 2
+fi
 
 infile="$@[-1]"
 lang='pol'
@@ -23,24 +31,16 @@ mkdir /tmp/run-ocr
 
 while getopts "l:f:d:o:r:" opt; do
     case $opt in
-        l)
-            lang="$OPTARG"
-            ;;
-        f)
-            format="$OPTARG"
-            ;;
-        d)
-            data_dir="$OPTARG"
-            ;;
-        o)
-            outfile="$OPTARG"
-            ;;
+        l) lang="$OPTARG" ;;
+        f) format="$OPTARG" ;;
+        d) data_dir="$OPTARG" ;;
+        o) outfile="$OPTARG" ;;
         'r')
             rotate=1
             degree="$OPTARG"
             ;;
         *)
-            echo "$0 niepoprawna opcja: -$OPTARG"
+            echo "$0 incorrect option: -$OPTARG"
             quit 2
             ;;
     esac
@@ -61,4 +61,5 @@ fi
 
 tesseract $list $outfile --tessdata-dir $data_dir -l $lang $format
 mv "$outfile.pdf" "$startdir/$outfile.pdf"
+
 quit 1
