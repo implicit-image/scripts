@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+
+# $ switch-emacs
+# now using doom emacs | now using
+
+doomdir="$HOME/.doomdir"
+gnudir="$HOME/.gnudir"
+emacsdir="$HOME/.emacs.d"
+tempfile=/tmp/curr_emacs
+
+cd $HOME
+killall emacs
+sleep 5
+
+if [[ $(cat $tempfile) == "DOOM" ]];then
+    echo "GNU" > $tempfile
+    mv $emacsdir $doomdir
+    mv $gnudir $emacsdir
+    echo "now using gnu emacs"
+elif [[ $(cat $tempfile) == "GNU" ]]; then
+    echo "DOOM" > $tempfile
+    mv $emacsdir $gnudir
+    mv $doomdir $emacsdir
+    echo "now using doom emacs"
+fi
+
+# restart emacs
+echo "restarting"
+sleep 2
+emacs --bg-daemon 

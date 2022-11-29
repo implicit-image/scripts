@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+
+tempfile=/tmp/curr_emacs
+
+if [[ ! -e $tempfile ]]; then 
+    touch $tempfile
+fi
+
+echo "DOOM" > $tempfile
+
+
+

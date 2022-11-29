@@ -10,56 +10,84 @@
 # -o outfile
 # infile
 
+tempdir="/tmp/run-ocr"
+infile="$@[-1]" #last argument
+echo "infile: $infile"
+# language for ocr
+lang='pol'
+# output format
+format='pdf'
+# tesseract takes output name to be without extension
+outfile=$(echo $infile | cut -f 1 -d '.')
+data_dir="$TESSDATA_PREFIX"
+rotate=0 # if 1 then rotate
+mkdir $tempdir # create temporary directory
+
+
+function usage {
+    echo "usage: ocr [-l LANG] [-f OUTPUT_FORMAT] [-d DATA_DIR] [-r DEGREE] [-o OUTPUT_FILE] inputfile\n
+        options:
+            -l LANG     specify language of the text you want to detect (default: polish)
+            -f FORMAT   specify the format of the output file
+            -d DATA_DIR specify the path to tesseract data directory (default: value of \$TESSDATA_PREFIX )
+            -r DEGREE   specify degree by which to rotate the document before ocr  (default: no rotation)
+            -o OUTPUT_FILE  specify name of the output file (default: inputfile stripped of extension)
+            "
+    quit 1
+}
+
+
+
 function quit {
-    rm -rd /tmp/run-ocr
+    if [[ -e $tempdir ]]; then
+       rm -rd $tempdir
+    fi
     exit $1
 }
 
-if [[ $@[-1] == $0 ]]; then
-    echo "You need to supply the input file"
+if [[ $@[-1] == $1 ]]; then
+    usage 1
     quit 2
 fi
 
-infile="$@[-1]"
-lang='pol'
-format='pdf'
-outfile=$(echo $infile | cut -f 1 -d '.')
-data_dir="$TESSDATA_PREFIX"
-tempdir="/tmp/run-ocr"
-rotate=0
-mkdir /tmp/run-ocr
-
-while getopts "l:f:d:o:r:" opt; do
+while getopts "hl:f:d:o:r:" opt; do
     case $opt in
         l) lang="$OPTARG" ;;
         f) format="$OPTARG" ;;
         d) data_dir="$OPTARG" ;;
-        o) outfile="$OPTARG" ;;
+        o)
+            outfile="$OPTARG"
+            echo "outfile: $outfile"
+            ;;
+        h) usage 1 ;;
         'r')
             rotate=1
             degree="$OPTARG"
             ;;
         *)
-            echo "$0 incorrect option: -$OPTARG"
+            echo "$0 incorrect option: -$opt $OPTARG"
             quit 2
             ;;
     esac
 done
 
-startdir=$(pwd) #directory where script was launched
-cd /tmp/run-ocr/ # now we are in our temp dir
+# directory where the script was launched
+startdir=$(pwd)
+cd $tempdir
+# tesseract needs image files as input
 pdftoppm -png "$startdir/$infile" "image"
-list=$(ls "$tempdir")
-
-
-if [[ $rotate == 1 ]]; then
+# list of generated image files
+# list=$(ls "$tempdir")
+echo "list: $list"
+if [[ $rotate ]]; then
+    echo "rotate: $rotate"
     #rotate images using convert
-    for image in $list; do
+    for image in $(ls $tempdir); do
         convert -rotate $degree $image $image
     done
 fi
 
-tesseract $list $outfile --tessdata-dir $data_dir -l $lang $format
+tesseract $(ls $tempdir) $outfile --tessdata-dir $data_dir -l $lang $format
 mv "$outfile.pdf" "$startdir/$outfile.pdf"
 
 quit 1
