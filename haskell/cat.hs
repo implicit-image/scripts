@@ -12,5 +12,5 @@ main =
   do
   (f:_) <- getArgs
   withFile f ReadMode $ \h -> do
-    c <- (return . lines) =<< hGetContents h
-    forM_ c $ putStrLn
+    c <- lines <$> hGetContents h
+    forM_ c putStrLn

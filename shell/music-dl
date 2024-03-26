@@ -1,9 +1,0 @@
-#!/usr/bin/zsh
-
-
-
-# downloaded file name from yt-dl is <title>-<video-id>.<extension>
-link=$1
-
-# bells carol
-# rains of castamere

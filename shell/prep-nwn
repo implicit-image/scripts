@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+set -xe
+
+NWN_DIR="$HOME/.local/share/Neverwinter Nights"
+ini_file="$NWN_DIR/nwn.ini"
+wine_ini_file="$ini_file.wine"
+native_ini_file="$ini_file.native"
+
+if [[ $1 = "native"  ]]; then
+    if [[ -e "$native_ini_file" ]]; then
+        # backup currently active .ini
+        mv "$ini_file" "$wine_ini_file"
+        # activate new one
+        mv "$native_ini_file" "$ini_file"
+    fi
+fi
+if [[ $1 = "wine" ]]; then
+    # if nwn.ini.wine exists
+    if [[ -e "$wine_ini_file" ]]; then
+        # if .wine file exists, native file is active
+        # move active file
+        mv "$ini_file" "$native_ini_file"
+        mv "$wine_ini_file" "$ini_file"
+    fi
+fi

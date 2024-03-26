@@ -1,0 +1,16 @@
+
+
+
+{
+    "games": [
+        {
+        "symbol": "BG3",
+        "name": "Baldur's gate",
+        "executable": "$HOME/.steam/steam/steamapps/common/Baldurs Gate 3/bin/bg3.exe",
+        "root_dir": "$HOME/.steam/steam/steamapps/common/Baldurs Gate 3/",
+        "default_prefix": "$HOME/",
+        "default_runner": "proton Experimental",
+        "is_stean": true,
+    }
+    ]
+}

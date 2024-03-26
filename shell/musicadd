@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+set -e
+
+while getopts "o:l:" opt; do
+    case $opt in
+        o) outfile="$MUSIC_DIR/$OPTARG" ;;
+        l) link="$OPTARG" ;;
+        *) echo "$0: incorrect option -$opt $OPTARG"
+           exit 1
+           ;;
+    esac
+done
+
+if [[ -z ${outfile} ]]; then
+    echo "$0: output file not defined, using default file name"
+    outfile="$MUSIC_DIR/%(artist,creator,uploader)s - %(title)s%(ext)s"
+fi
+
+yt-dlp -x -o "$outfile" "$link"

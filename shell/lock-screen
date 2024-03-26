@@ -1,4 +1,0 @@
-#!/usr/bin/zsh
-
-
-betterlockscreen --blur 0.2 -w "$HOME/Projects/dotfiles/wallpapers/wall.png"

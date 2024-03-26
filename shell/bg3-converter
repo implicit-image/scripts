@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+
+WINEPREFIX=~/Games/BG3 wine ~/Games/modding/bg3/Src/TOOLS/ExportTool-v1.18.5/ConverterApp.exe ./

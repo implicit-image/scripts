@@ -1,0 +1,18 @@
+#!/bin/bash
+
+VFIO="/etc/modprobe.d/vfio.conf"
+
+echo "current $VFIO is:"
+if [[ $(cat $VFIO | grep '#') ]]; then
+	# if there is # in file then file is inactive
+	cp -f /home/b/repos/scripts/shell/vfio.conf.passthrough $VFIO
+else
+	# passthrough is enabled
+	cp -f /home/b/repos/scripts/shell/vfio.conf.host $VFIO
+fi
+
+cat $VFIO
+
+echo "Rebooting"
+sleep 2
+reboot

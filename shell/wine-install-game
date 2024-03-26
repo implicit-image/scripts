@@ -1,0 +1,45 @@
+#!/usr/bin/bash
+
+# wine-install-game <download directory>
+
+set -xe
+
+log($prefix, $src_directory, $executable) {
+	echo "prefix is $prefix"
+	echo "src dir is $src_directory"
+	echo "executable is $executable"
+}
+
+PREFIX_DIR_PATH="$HOME/wine-prefixes/games"
+PREFIX_PATH="$PREFIX_DIR_PATH/default"
+
+src_dir=$1
+
+if [[ ! $1 = "--use-custom-prefix" && ! $1 = "-c" ]]; then
+	# use default-prefix
+	# use_default_prefix=1
+	# src_dir=$1
+  # using custom prefix
+  $exec=
+  log($PREFIX_PATH, $src_dir, $exec)
+else
+	# PREFIX_PATH="$2"
+	# src_dir=$3
+fi
+
+run-installer() {
+	WINEPREFIX=$1
+	installer=$2
+	wine $installer
+}
+
+if [[ 1 ]]; then
+	if [[ use_default_prefix -eq 1 ]]; then
+		# run-installer $default_prefix $installer
+	else
+		# custom_prefix=
+		# run-installer $custom_prefix $installer
+	fi
+# else # installer exe is not in src dir
+
+fi

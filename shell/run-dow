@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+launcher=$1
+
+if [[ $launcher = "steam" ]]; then
+	steam steam://rungameid/9450 &
+else
+	lutris lutris:rungameid/2 &
+fi

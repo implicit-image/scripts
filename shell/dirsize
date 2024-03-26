@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+dir=$(realpath $1)
+echo $dir
+for entry in $(ls -A $dir) ; do
+    du -sh "$entry" 2> /dev/null &
+done

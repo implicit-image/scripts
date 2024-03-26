@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+dir=$(realpath $1)
+
+echo export PATH=\"$dir:\$PATH\" >> $HOME/.zshrc

@@ -1,0 +1,26 @@
+[Alias]
+MODELCOMPILER=/home/b/.local/share/Neverwinter Nights/modelcompiler
+CACHE=/home/b/.local/share/Neverwinter Nights/cache
+NWSYNC=/home/b/.local/share/Neverwinter Nights/nwsync
+OLDSERVERVAULT=/home/b/.local/share/Neverwinter Nights/oldservervault
+PATCH=/home/b/.local/share/Neverwinter Nights/patch
+DEVELOPMENT=/home/b/.local/share/Neverwinter Nights/development
+HD0=/home/b/.local/share/Neverwinter Nights
+MODULES=/home/b/.local/share/Neverwinter Nights/modules
+SAVES=/home/b/.local/share/Neverwinter Nights/saves
+OVERRIDE=/home/b/.local/share/Neverwinter Nights/override
+HAK=/home/b/.local/share/Neverwinter Nights/hak
+SCREENSHOTS=/home/b/.local/share/Neverwinter Nights/screenshots
+CURRENTGAME=/home/b/.local/share/Neverwinter Nights/currentgame
+LOGS=/home/b/.local/share/Neverwinter Nights/logs
+TEMP=/home/b/.local/share/Neverwinter Nights/temp
+TEMPCLIENT=/home/b/.local/share/Neverwinter Nights/tempclient
+LOCALVAULT=/home/b/.local/share/Neverwinter Nights/localvault
+DMVAULT=/home/b/.local/share/Neverwinter Nights/dmvault
+SERVERVAULT=/home/b/.local/share/Neverwinter Nights/servervault
+DATABASE=/home/b/.local/share/Neverwinter Nights/database
+PORTRAITS=/home/b/.local/share/Neverwinter Nights/portraits
+AMBIENT=/home/b/.local/share/Neverwinter Nights/ambient
+MOVIES=/home/b/.local/share/Neverwinter Nights/movies
+MUSIC=/home/b/.local/share/Neverwinter Nights/music
+TLK=/home/b/.local/share/Neverwinter Nights/tlk
