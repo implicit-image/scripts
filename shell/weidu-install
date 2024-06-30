@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+
+#######################################
+# Copies game directory and installs given weidu mod in
+# it.
+# weidu-install moddir installer gamedir
+#######################################
+
+usage () {
+    echo "weidu-install"
+    echo "    usage:"
+    echo "    weidu-install <moddir> <installer> <gamedir>"
+}
+
+while getopts "-:h" opt; do
+    case ${opt} in
+        "-") case ${OPTARG} in
+                 "-help") usage
+                          ;;
+             esac
+             ;;
+        h) usage
+           ;;
+    esac
+done
+
+MODDIR=$1
+INSTALLER=$2
+GAMEDIR=$3
+
+#figure out name for modded game
+MODDED_GAME_DIR=""
+
+
+echo "copying $GAMEDIR to "

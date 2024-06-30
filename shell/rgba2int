@@ -1,0 +1,41 @@
+#!/home/b/.n/bin/node
+
+
+function hexToRGBA(hex) {
+    if (hex[0] == "#") {
+        hex = hex.substring(1);
+    }
+    let r = hex.substring(0, 2);
+    let g = hex.substring(2, 4);
+    let b = hex.substring(4, 6);
+    let a = hex.substring(6, 8);
+
+    if (a == " ") a = "00";
+
+    return { r, g, b, a };
+}
+
+function any(f, arr) {
+    return arr.reduce((acc, curr) => acc || f(curr), false);
+}
+
+function rGBAToInt({ r, g, b, a }) {
+    r = parseInt(r, 16);
+    g = parseInt(g, 16);
+    b = parseInt(b, 16);
+    a = parseInt(a, 16);
+    if (any(e => e == NaN, [r, g, b, a])) {
+        return NaN;
+    }
+
+    let iRepr = (a << 24) + (r << 16) + (g << 8 )+ (b << 0)
+    return iRepr;
+}
+
+
+let hexcode = process.argv[2];
+
+console.log(hexcode)
+
+let intRepr = rGBAToInt(hexToRGBA(hexcode));
+console.log(intRepr);

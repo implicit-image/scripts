@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+node ~/repos/nwscript-ee-language-server/server/out/server.js --stdio
+# nwscript-language-server
